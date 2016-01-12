@@ -432,6 +432,10 @@ tmedia_session_jsep01.onGetUserMediaSuccess = function (o_stream, _This) {
             return;
         }
 
+     // HACK: patch for Chrome 40+; taken from https://code.google.com/p/sipml5/issues/detail?id=209
+     if(This.my_mutex){tsk_utils_log_warn("onGetUserMediaSuccess already executed!"); return;}
+     This.my_mutex=true;
+
         if (o_stream) {
             // save stream other next calls
             if (o_stream.getAudioTracks().length > 0 && o_stream.getVideoTracks().length == 0) {
