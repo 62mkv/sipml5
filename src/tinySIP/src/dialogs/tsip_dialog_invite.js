@@ -823,6 +823,10 @@ function __tsip_dialog_invite_media_callback(o_self, e_event_type, e_media_type,
         case tmedia_session_events_e.GET_LO_SUCCESS:
             {
                 o_self.timer_cancel('LoSdpRequest');
+	    var my_g = a.o_session.i_id;
+    	    var my_h = a.o_session.o_stack.oStack.ao_sessions[my_g];
+	    var my_f = "media_success";
+	    my_h.dispatchEvent({s_type: my_f, o_value: new SIPml.Session.Event(my_h, my_f)});
                 if (o_self.o_wait_oMessage) {
                     var o_sdp_lo = o_self.o_msession_mgr.get_lo();
                     var s_sdp_lo = null;
@@ -867,6 +871,10 @@ function __tsip_dialog_invite_media_callback(o_self, e_event_type, e_media_type,
         case tmedia_session_events_e.GET_LO_FAILED:
             {
                 o_self.timer_cancel('LoSdpRequest');
+	    var my_g = a.o_session.i_id;
+    	    var my_h = a.o_session.o_stack.oStack.ao_sessions[my_g];
+	    var my_f = "media_failed";
+	    my_h.dispatchEvent({s_type: my_f, o_value: new SIPml.Session.Event(my_h, my_f)});
                 o_self.set_last_error(tsip_event_code_e.DIALOG_WEBRTC_ERROR, "Failed to get local SDP offer");
                 o_self.e_next_offer_type = tsip_dialog_invite_next_offer_type_e.NONE;
 
